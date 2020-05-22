@@ -20,7 +20,7 @@ class SwaggerConfiguration {
     companion object {
         const val basePackage = "com.richardson.kotpay"
         const val title = "Kotpay"
-        const val description = "REST API para Pagamentos"
+        const val description = "REST API para Pagamentos em Kotlin"
         const val version = "1.0.0-SNAPSHOT"
         const val license = "Copyright © Richardson Software Ltda - 2020"
         const val controllerTag = "Kotpay"
