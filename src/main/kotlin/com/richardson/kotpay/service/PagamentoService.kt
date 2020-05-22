@@ -1,5 +1,6 @@
 package com.richardson.kotpay.service
 
+import com.richardson.kotpay.exception.KotpayException
 import com.richardson.kotpay.model.Pagamento
 import com.richardson.kotpay.model.PagamentoDTO
 import com.richardson.kotpay.repository.PagamentoDatabase
@@ -24,7 +25,10 @@ class PagamentoService {
         return PagamentoDTO.fromPagamento(this.pagamentoDatabase.listarPorId(id))
     }
 
-    fun adicionar(pagamento: Pagamento): PagamentoDTO? {
+    fun adicionar(pagamentoDTO: PagamentoDTO): PagamentoDTO? {
+        val pagamento: Pagamento? = PagamentoDTO.toPagamento(pagamentoDTO)
+        pagamento ?: throw KotpayException("Ocorreu um erro")
+
         return PagamentoDTO.fromPagamento(this.pagamentoDatabase.adicionar(pagamento))
     }
 

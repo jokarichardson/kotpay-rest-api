@@ -1,7 +1,9 @@
 package com.richardson.kotpay.model
 
+import springfox.documentation.annotations.ApiIgnore
 import java.time.LocalDateTime
 
+@ApiIgnore
 class Pagamento {
     var id = 0
     var formaPagamento = ""
