@@ -3,26 +3,26 @@ package com.richardson.kotpay.model
 import com.richardson.kotpay.util.LocalDateTimeConverter
 
 class PagamentoDTO {
-    var id = 0
-    var formaPagamento = ""
-    var valor = 0.0
-    var moeda = ""
-    var descricao = ""
-    var status = ""
-    var dataCriacao: String? = ""
-    var dataModificacao: String? = ""
+    private var id = 0
+    private var formaPagamento = ""
+    private var valor = 0.0
+    private var moeda = ""
+    private var descricao = ""
+    private var status = ""
+    private var dataCriacao: String? = null
+    private var dataModificacao: String? = null
 
     constructor()
 
     constructor(
-        id: Int,
-        formaPagamento: String,
-        valor: Double,
-        moeda: String,
-        descricao: String,
-        status: String,
-        dataCriacao: String?,
-        dataModificacao: String?
+            id: Int,
+            formaPagamento: String,
+            valor: Double,
+            moeda: String,
+            descricao: String,
+            status: String,
+            dataCriacao: String?,
+            dataModificacao: String?
     ) {
         this.id = id
         this.formaPagamento = formaPagamento
@@ -34,15 +34,38 @@ class PagamentoDTO {
         this.dataModificacao = dataModificacao
     }
 
+    fun getId() = this.id
+
+    fun getFormaPagamento() = this.formaPagamento
+
+    fun getValor() = this.valor
+
+    fun getMoeda() = this.moeda
+
+    fun getDescricao() = this.descricao
+
+    fun getStatus() = this.status
+
+    fun getDataCriacao() = this.dataCriacao
+    fun setDataCriacao(dataCriacao: String?) {
+        this.dataCriacao = dataCriacao
+    }
+
+    fun getDataModificacao() = this.dataModificacao
+    fun setDataModificacao(dataModificacao: String?) {
+        this.dataModificacao = dataModificacao
+    }
+
     companion object {
         fun fromPagamento(pagamento: Pagamento?): PagamentoDTO? {
             if (pagamento == null)
                 return null
 
-            var pagamentoDTO = PagamentoDTO(pagamento.id, pagamento.formaPagamento, pagamento.valor, pagamento.moeda, pagamento.descricao, pagamento.status, "", "")
-            pagamentoDTO.dataCriacao = LocalDateTimeConverter.convertToString(pagamento.dataCriacao)
-            if (pagamento.dataModificacao != null)
-                pagamentoDTO.dataModificacao = LocalDateTimeConverter.convertToString(pagamento.dataModificacao)
+            var pagamentoDTO = PagamentoDTO(pagamento.getId(), pagamento.getFormaPagamento(), pagamento.getValor()
+                    , pagamento.getMoeda(), pagamento.getDescricao(), pagamento.getStatus(), "", "")
+            pagamentoDTO.setDataCriacao(LocalDateTimeConverter.convertToString(pagamento.getDataCriacao()))
+            if (pagamento.getDataModificacao() != null)
+                pagamentoDTO.setDataModificacao(LocalDateTimeConverter.convertToString(pagamento.getDataModificacao()))
 
             return pagamentoDTO
         }
@@ -51,10 +74,13 @@ class PagamentoDTO {
             if (pagamentoDTO == null)
                 return null
 
-            var pagamento = Pagamento(pagamentoDTO.id, pagamentoDTO.formaPagamento, pagamentoDTO.valor, pagamentoDTO.moeda, pagamentoDTO.descricao, pagamentoDTO.status, null, null)
-            pagamento.dataCriacao = LocalDateTimeConverter.convertToLocalDateTime(pagamentoDTO.dataCriacao)
-            if (pagamento.dataModificacao != null)
-                pagamento.dataModificacao = LocalDateTimeConverter.convertToLocalDateTime(pagamentoDTO.dataModificacao)
+            var pagamento = Pagamento(pagamentoDTO.getId(), pagamentoDTO.getFormaPagamento(), pagamentoDTO.getValor()
+                    , pagamentoDTO.getMoeda(), pagamentoDTO.getDescricao(), pagamentoDTO.getStatus(), null, null)
+
+            pagamento.setDataCriacao(LocalDateTimeConverter.convertToLocalDateTime(pagamentoDTO.getDataCriacao()))
+
+            if (pagamento.getDataModificacao() != null)
+                pagamento.setDataModificacao(LocalDateTimeConverter.convertToLocalDateTime(pagamentoDTO.getDataModificacao()))
 
             return pagamento
         }

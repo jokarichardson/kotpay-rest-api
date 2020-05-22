@@ -33,11 +33,11 @@ class PagamentoDatabase {
     fun listar() = this.pagamentos;
 
     fun listarPorId(id: Int): Pagamento? =
-            this.pagamentos.find { it?.id == id } ?: throw KotpayException("Pagamento não localizado")
+            this.pagamentos.find { it?.getId() == id } ?: throw KotpayException("Pagamento não localizado")
 
     fun adicionar(pagamento: Pagamento): Pagamento {
-        pagamento.id = this.pagamentos.size + 1;
-        pagamento.dataCriacao = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"))
+        pagamento.setId(this.pagamentos.size + 1)
+        pagamento.setDataCriacao(LocalDateTime.now(ZoneId.of("America/Sao_Paulo")))
         this.pagamentos.add(pagamento)
 
         return pagamento;
@@ -48,8 +48,8 @@ class PagamentoDatabase {
 
         var indice = this.pagamentos.indexOf(pagamento)
 
-        pagamento?.status = "PAGO"
-        pagamento?.dataModificacao = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"))
+        pagamento?.setStatus("PAGO")
+        pagamento?.setDataModificacao(LocalDateTime.now(ZoneId.of("America/Sao_Paulo")))
 
         this.pagamentos.removeAt(indice)
         this.pagamentos.add(pagamento)
@@ -62,8 +62,8 @@ class PagamentoDatabase {
 
         var indice = this.pagamentos.indexOf(pagamento)
 
-        pagamento?.status = "CANCELADO"
-        pagamento?.dataModificacao = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"))
+        pagamento?.setStatus("CANCELADO")
+        pagamento?.setDataModificacao(LocalDateTime.now(ZoneId.of("America/Sao_Paulo")))
 
         this.pagamentos.removeAt(indice)
         this.pagamentos.add(pagamento)
